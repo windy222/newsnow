@@ -1,7 +1,7 @@
 {
   "name": "newsnow",
   "type": "module",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "private": true,
   "packageManager": "pnpm@10.30.3",
   "author": {
@@ -11,7 +11,7 @@
   },
   "homepage": "https://github.com/ourongxing/newsnow",
   "scripts": {
-    "dev": "npm run presource && vite dev",
+    "dev": "npm run presource && cross-env NODE_OPTIONS=--use-env-proxy vite dev",
     "build": "npm run presource && vite build",
     "lint": "eslint",
     "presource": "tsx ./scripts/favicon.ts && tsx ./scripts/source.ts",
@@ -116,7 +116,11 @@
       "simple-git-hooks",
       "unrs-resolver",
       "workerd"
-    ]
+    ],
+    "overrides": {
+      "vite-plugin-with-nitro>h3": "npm:h3-nightly@1.15.4-20250730-094032-325a62b",
+      "nitro-go>h3": "npm:h3-nightly@1.15.4-20250730-094032-325a62b"
+    }
   },
   "resolutions": {
     "cross-spawn": ">=7.0.6",
