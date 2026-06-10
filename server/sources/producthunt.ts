@@ -1,5 +1,11 @@
 import process from "node:process"
+import dayjs from "dayjs/esm"
+import timezonePlugin from "dayjs/esm/plugin/timezone"
+import utcPlugin from "dayjs/esm/plugin/utc"
 import type { NewsItem } from "@shared/types"
+
+dayjs.extend(utcPlugin)
+dayjs.extend(timezonePlugin)
 
 const feed = defineRSSSource("https://www.producthunt.com/feed")
 
@@ -7,9 +13,10 @@ export default defineSource(async () => {
   const apiToken = process.env.PRODUCTHUNT_API_TOKEN
   if (!apiToken) return feed()
 
+  const postedAfter = dayjs().tz("America/Los_Angeles").startOf("day").toISOString()
   const query = `
-    query {
-      posts(first: 30, order: VOTES) {
+    query($postedAfter: DateTime!) {
+      posts(first: 30, order: RANKING, postedAfter: $postedAfter) {
         edges {
           node {
             id
@@ -32,7 +39,7 @@ export default defineSource(async () => {
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables: { postedAfter } }),
     })
 
     const posts = response?.data?.posts?.edges || []
