@@ -3,7 +3,7 @@
 [English](./README.md) | [简体中文](README.zh-CN.md) | 日本語
 
 > [!NOTE]
-> 本バージョンはデモ版であり、現在中国語のみ対応しています。カスタマイズ機能や英語コンテンツをサポートした正式版は後日リリース予定です。
+> NewsNext, the next gen of NewsNow, is coming soon, join the [waitlist](https://tally.so/r/yPBBYg).
 
 ***リアルタイムで最新のニュースをエレガントに読む***
 

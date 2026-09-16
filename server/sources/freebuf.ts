@@ -48,7 +48,7 @@ export default defineSource(async () => {
     responseType: "text" as any,
   }).catch(() => fetchByCurl(url))
 
-  if (!xmlText) return []
+  if (!xmlText) throw new Error("Cannot fetch freebuf feed")
 
   const xml = new XMLParser({
     attributeNamePrefix: "",
@@ -59,7 +59,7 @@ export default defineSource(async () => {
   const items = result?.rss?.channel?.item
   const list: RSSItem[] = Array.isArray(items) ? items : items ? [items] : []
 
-  return list.map<NewsItem>((item) => {
+  const news = list.map<NewsItem>((item) => {
     const link = getText(item.link)
     return {
       id: getText(item.guid) || link,
@@ -71,4 +71,8 @@ export default defineSource(async () => {
       },
     }
   }).filter(item => item.id && item.title && item.url)
+
+  // 被 WAF 拦截时会返回挑战页，解析结果为空，需要抛错走缓存而不是返回空列表
+  if (!news.length) throw new Error("Cannot fetch freebuf feed")
+  return news
 })

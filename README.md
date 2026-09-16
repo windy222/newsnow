@@ -3,7 +3,7 @@
 English | [简体中文](README.zh-CN.md) | [日本語](README.ja-JP.md)
 
 > [!NOTE]
-> This is a demo version currently supporting Chinese only. A full-featured version with better customization and English content support will be released later.
+> NewsNext, the next gen of NewsNow, is coming soon, join the [waitlist](https://tally.so/r/yPBBYg).
 
 **_Elegant reading of real-time and hottest news_**
 
